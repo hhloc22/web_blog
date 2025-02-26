@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/popup.css' />
+    <script src="/javascripts/popup.js"></script>
+</head>
+<body>
+    {{{body}}}
+
+    <!-- Blog Popup -->
+    <div id="blogPopupOverlay" class="blog-popup-overlay"></div>
+    <div id="blogPopup" class="blog-popup">
+        <button onclick="closeBlogPopup()" class="blog-popup-close">&times;</button>
+        <div class="blog-popup-header">
+            <h2 id="blogPopupTitle" class="blog-popup-title"></h2>
+            <div class="blog-popup-meta">
+                <span id="blogPopupAuthor"></span>
+                <span id="blogPopupDate"></span>
+            </div>
+        </div>
+        <div class="blog-popup-content">
+            <div id="blogPopupContent" class="blog-popup-body"></div>
+        </div>
+    </div>
+</body>
+</html>

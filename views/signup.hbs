@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Furfly Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F8F5EF] flex justify-center items-center h-screen"> 
+    <!-- Navbar -->
+    <nav class= "absolute top-0 left-0 w-full  bg-[#53382c] text-white p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2 ml-10">
+            <img src="/images/furfly.png" alt="Furfly Logo" class="h-8 w-8 mr-2 rounded-full">
+            <div class="text-2xl font-serif italic"><a href="/">furfly.blog</a></div>
+        </div>
+    </nav>
+
+    <!-- Sign up form -->
+    <div class="bg-[#B76E42] p-10 rounded-lg shadow-lg w-96 text-center mt-20">
+        <h2 class="text-center text-2xl font-bold mb-6">Sign up</h2>
+        <form action="/register" method="POST">
+            <label class="block mb-2">Username</label>
+            <input type="text" name="username" maxlength="25" class="w-full p-2 mb-4 border border-black rounded-md bg-[#E8B996]" required>
+
+            <label class="block mb-2">Email Address</label>
+            <input type="email" name="email" maxlength="254" class="w-full p-2 mb-4 border border-black rounded-md bg-[#E8B996]" required>
+
+            <div class="flex space-x-4">
+                <div class="w-1/2">
+                    <label class="block mb-2">Password</label>
+                    <div class="relative">
+                        <input type="password" name="password" maxlength="254" class="w-full p-2 border border-black rounded-md bg-[#C57C4D] focus:ring-2 focus:ring-[#8c5430]" required>
+                    </div>
+                </div>
+                <div class="w-1/2">
+                    <label class="block mb-2">Confirm Password</label>
+                    <div class="relative">
+                        <input type="password" name="confirmPassword" maxlength="254" class="w-full p-2 border border-black rounded-md bg-[#C57C4D] focus:ring-2 focus:ring-[#8c5430]">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-black text-white py-2 rounded-md mt-6">Create Account</button>
+            <p class="text-center mt-4">or <a href="/users/login" class="text-black underline">Log in</a></p>
+        </form>
+        {{#if errorMessage}}
+            <p style="color: white;">{{errorMessage}}</p>
+        {{/if}}
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Furfly Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f5f2e9] flex justify-center items-center h-screen">
+    <!-- Navbar -->
+    <nav class= "absolute top-0 left-0 w-full  bg-[#53382c] text-white p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2 ml-10">
+            <img src="/images/furfly.png" alt="Furfly Logo" class="h-8 w-8 mr-2 rounded-full">
+            <div class="text-2xl font-serif italic"><a href="/">furfly.blog</a></div>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="bg-[#b36b3f] p-10 rounded-lg shadow-lg w-96 text-center mt-20">
+        <h2 class="text-2xl font-serif italic mb-6">Log in</h2>
+        <form action="/login" method="POST">
+            <div class="mb-4 relative">
+                <input type="text" name="username" placeholder="Username" maxlength="25" class="w-full p-3 pl-10 border-none rounded-md bg-[#e7b189] focus:ring-2 focus:ring-[#8c5430]" required>
+                <span class="absolute left-3 top-3 text-black">&#128100;</span>
+            </div>
+            <div class="mb-4 relative">
+                <input type="password" name="password" placeholder="Password" maxlength="254" class="w-full p-3 pl-10 border-none rounded-md bg-[#e7b189] focus:ring-2 focus:ring-[#8c5430]" required>
+                <span class="absolute left-3 top-3 text-black">&#128274;</span>
+            </div>
+            <button type="submit" class="bg-black text-white w-full py-2 rounded-md">Log in</button>
+        </form>
+        {{#if errorMessage}}
+            <p style="color: white;">{{errorMessage}}</p>
+        {{/if}}
+        <p class="mt-4 text-sm">or <a href="/users/signup" class="underline">Sign up</a></p>
+    </div>
+</body>
+</html>

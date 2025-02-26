@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blogs - Furfly Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f4f1eb] text-gray-900">
+    <!-- Navbar -->
+    <nav class="w-full bg-[#4A3527] text-white p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2 ml-10">
+            <img src="/images/furfly.png" alt="Furfly Logo" class="h-8 w-8 mr-2 rounded-full">
+            <div class="text-2xl font-serif italic"><a href="/">furfly.blog</a></div>
+        </div>
+        <a href="/logout" class="space-x-6 hover:underline">LOG OUT</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto py-4 px-4">
+        <div class="flex items-center gap-2">
+            <a href="/myblogs" class="text-3xl font-bold text-[#53382C]">MY BLOGS: </a>
+            <span class="underline text-3xl font-bold italic text-[#8f8f8f]">{{user.username}}</span>
+        </div>        
+        <!-- Blog Cards Grid -->
+        <div class="grid md:grid-cols-3 gap-12 mt-12">
+            {{#each blogs}}
+            <div class="bg-[#b77f56] p-4 rounded-2xl shadow-lg text-[#231f20] hover:shadow-xl transition-shadow relative group cursor-pointer">
+                <button onclick="deleteBlog({{id_blog}}); event.stopPropagation();" 
+                    class="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full w-6 h-6 flex items-center justify-center text-lg leading-[1.25rem]">
+                    ×
+                </button>
+                <div onclick="showBlogPopup({{id_blog}})">
+                    <h2 class="text-xl font-bold pr-8">{{blog_name}}</h2>
+                    <p class="text-sm mt-2">{{truncatedContent}}</p>
+                    <div class="flex justify-between items-center mt-4 text-sm">
+                        <span class="flex items-center">&#128100; {{author_name}}</span>
+                        <span><i>{{formatDate post_time}}</i></span>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        
+        <!-- Pagination -->
+        {{#if pagination}}
+        <div class="text-center mt-16 text-lg italic">
+            <div class="flex justify-center items-center space-x-4">
+                {{#if pagination.hasPreviousPage}}
+                <a href="/myblogs/?page={{pagination.previousPage}}" class="hover:text-[#b77f56]">&lt;</a>
+                {{/if}}
+                
+                {{#each pagination.pages}}
+                    {{#if this.isCurrentPage}}
+                    <span class="text-[#b77f56] font-bold">{{this.pageNumber}}</span>
+                    {{else}}
+                    <a href="/myblogs/?page={{this.pageNumber}}" class="hover:text-[#b77f56]">{{this.pageNumber}}</a>
+                    {{/if}}
+                {{/each}}
+                
+                {{#if pagination.hasNextPage}}
+                <a href="/myblogs/?page={{pagination.nextPage}}" class="hover:text-[#b77f56]">&gt;</a>
+                {{/if}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+
+    <script>
+        function deleteBlog(blogId) {
+            if (confirm('Bạn có chắc chắn muốn xóa blog này không?')) {
+                fetch(`/delete-blog/${blogId}`, {
+                    method: 'DELETE',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Reload trang để cập nhật danh sách blog
+                        window.location.reload();
+                    } else {
+                        alert('Có lỗi xảy ra khi xóa blog!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi xóa blog!');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
