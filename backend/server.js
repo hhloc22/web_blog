@@ -24,6 +24,11 @@ db.connect((err) => {
     console.log('Đã kết nối thành công đến MySQL');
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
+
 // API đăng ký
 app.post('/api/signup', async (req, res) => {
     const { username, email, password } = req.body;
