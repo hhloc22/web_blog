@@ -2,6 +2,20 @@
 
 Ứng dụng blog đơn giản được xây dựng bằng React (Frontend) và Node.js + Express (Backend) với MySQL làm cơ sở dữ liệu.
 
+## Công nghệ sử dụng
+
+### Frontend
+- React.js
+- Tailwind CSS
+- React Router DOM
+- Axios
+
+### Backend
+- Node.js + Express.js
+- MySQL
+- bcrypt (mã hóa mật khẩu)
+- dotenv (quản lý biến môi trường)
+
 ## Yêu cầu hệ thống
 
 1. Node.js (phiên bản 14.0.0 trở lên)
@@ -63,7 +77,7 @@ CREATE TABLE blog (
 );
 ```
 
-### 3. Cài đặt Backend
+### 3. Backend
 
 1. Di chuyển vào thư mục backend:
 ```bash
@@ -75,26 +89,27 @@ cd backend
 npm install
 ```
 
-3. Cấu hình database:
-   - Mở file `server.js`
-   - Tìm và sửa thông tin kết nối database theo cấu hình của bạn:
-```javascript
-const db = mysql.createConnection({
-    host: 'localhost',
-    port: 3307,  // Thay đổi port nếu cần
-    user: 'root',  // Thay đổi username nếu cần
-    password: 'your_password',  // Thay đổi password
-    database: 'webblog'
-});
+3. Tạo file môi trường từ file mẫu
+```bash
+cp .env.example .env
 ```
 
-4. Chạy server:
+4. Chỉnh sửa file `.env` với thông tin database của bạn:
+```env
+DB_HOST=your_host
+DB_USER=your_username
+DB_PASSWORD=your_password
+DB_NAME=your_database_name
+PORT=5000
+```
+
+5. Chạy server:
 ```bash
 npm start
 ```
 Server sẽ chạy tại http://localhost:5000
 
-### 4. Cài đặt Frontend
+### 4. Frontend
 
 1. Mở terminal mới và di chuyển vào thư mục frontend:
 ```bash
@@ -112,51 +127,52 @@ npm start
 ```
 Frontend sẽ chạy tại http://localhost:3000
 
-## Tính năng
-
-1. Đăng ký tài khoản
-2. Đăng nhập
-3. Xem danh sách blog
-4. Tạo blog mới
-5. Chỉnh sửa blog
-6. Xóa blog
-7. Xem danh sách blog theo tài khoản đăng nhập
-
 ## Cấu trúc thư mục
 
 ```
 web_blog/
-├── backend/
-│   ├── server.js
-│   ├── package.json
-│   └── package-lock.json
-└── frontend/
-    ├── public/
-    ├── src/
-    │   ├── components/
-    │   ├── pages/
-    │   ├── hooks/
-    │   ├── assets/
-    │   ├── App.js
-    │   ├── index.css
-    │   └── index.js
-    ├── package.json
-    └── package-lock.json
-    ├── postcss.config.js
-    └── tailwind.config.json
-
+├── backend/                # Backend server
+│   ├── node_modules/
+│   ├── .env              # File chứa biến môi trường (tạo từ .env.example)
+│   ├── .env.example      # File mẫu cho biến môi trường
+│   └── server.js         # File server chính
+│
+├── frontend/              # React frontend
+│   ├── node_modules/
+│   ├── public/
+│   └── src/
+│       ├── components/   # Components có thể tái sử dụng
+│       ├── pages/       # Components trang
+│       ├── hooks/       # Custom hooks
+│       └── assets/      # Hình ảnh và files tĩnh
+│
+└── README.md
 ```
 
-## Lưu ý
+## Biến môi trường
 
-1. Đảm bảo MySQL đang chạy trước khi khởi động backend
-2. Nếu gặp lỗi CORS, hãy kiểm tra cấu hình CORS trong `backend/server.js`
-3. Đảm bảo các port không bị sử dụng:
-   - Frontend: port 3000
-   - Backend: port 5000
-   - MySQL: port 3307 (hoặc port bạn đã cấu hình)
-4. Nếu muốn deploy ứng dụng, cần cấu hình lại các thông số như database connection string, API endpoints, etc.
+Các biến môi trường cần được cấu hình trong file `.env` ở thư mục backend:
 
-## Hỗ trợ
+- `DB_HOST` - Địa chỉ host của MySQL database
+- `DB_USER` - Tên người dùng MySQL
+- `DB_PASSWORD` - Mật khẩu MySQL
+- `DB_NAME` - Tên database
+- `PORT` - Port cho backend server (mặc định: 5000)
 
-Nếu bạn gặp bất kỳ vấn đề nào, vui lòng tạo issue trong repository hoặc liên hệ với team phát triển. 
+## Xử lý lỗi thường gặp
+
+Nếu gặp lỗi, hãy kiểm tra:
+
+1. Đã cài đặt đầy đủ các dependencies chưa
+2. MySQL server đã được khởi động chưa
+3. File `.env` đã được cấu hình đúng chưa
+4. Kiểm tra console để xem log lỗi
+5. Đảm bảo cả frontend và backend server đều đang chạy
+
+## Tính năng chính
+
+- Xác thực người dùng (Đăng ký, Đăng nhập)
+- Tạo, đọc, cập nhật, xóa bài viết
+- Xem tất cả bài viết
+- Xem bài viết cá nhân
+- Giao diện responsive

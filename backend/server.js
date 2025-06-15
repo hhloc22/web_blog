@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
@@ -9,11 +10,11 @@ app.use(express.json());
 
 // Kết nối MySQL
 const db = mysql.createConnection({
-    host: 'localhost',
-    port: 3307,
-    user: 'root',
-    password: 'h0huul0c',
-    database: 'webblog'
+    host: process.env.DB_HOST,
+    port: process.env.PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 db.connect((err) => {
@@ -272,4 +273,4 @@ app.get('/api/users/:username', (req, res) => {
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại port ${PORT}`);
-}); 
+});
