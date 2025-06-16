@@ -100,7 +100,7 @@ DB_HOST=your_host
 DB_USER=your_username
 DB_PASSWORD=your_password
 DB_NAME=your_database_name
-PORT=5000
+DB_PORT=3307
 ```
 
 5. Chạy server:
